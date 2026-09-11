@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>School Management System</title><link rel="stylesheet" href="assets/css/style.css"></head>
+<body>
+<div id="auth" class="auth"><div class="auth-card"><div class="logo">🎓</div><h1>School Management System</h1><p>Sign in to your school portal</p>
+<form id="login"><input id="email" type="email" placeholder="Email" required><input id="password" type="password" placeholder="Password" required><button>Sign in</button></form><div id="msg"></div></div></div>
+<div id="app" class="hidden"><aside><h2>🎓 My School</h2><small>Management System</small>
+<nav><button data-page="dashboard">▦ Dashboard</button><button data-page="students">👨‍🎓 Students</button><button data-page="staff">👩‍🏫 Staff & Teachers</button><button data-page="academics">📚 Academics</button><button data-page="attendance">✓ Attendance</button><button data-page="fees">💳 Fees & Finance</button><button data-page="exams">📝 Examinations</button><button data-page="reports">📊 Reports</button><button data-page="settings">⚙ Settings</button></nav><button id="logout">Logout</button></aside>
+<main><header><button id="menu">☰</button><div><small>SCHOOL MANAGEMENT</small><h2 id="title">Dashboard</h2></div><div id="user">Administrator</div></header><section id="content"></section></main></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="assets/js/config.js"></script><script src="assets/js/app.js"></script></body></html>
