@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduNova — School Management System</title>
+<style>
+:root{
+  --navy:#17233f;--blue:#4169e1;--sky:#eef4ff;--mint:#e9faf4;--gold:#f5b942;
+  --text:#1c2740;--muted:#71809b;--card:#fff;--line:#e7ebf3;--bg:#f6f8fc;
+  --shadow:0 12px 35px rgba(35,55,100,.08);--radius:18px;
+}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit} button{cursor:pointer;border:0}
+.app{display:flex;min-height:100vh}.sidebar{width:255px;background:var(--navy);color:#fff;padding:24px 16px;position:fixed;inset:0 auto 0 0;z-index:5}
+.brand{display:flex;gap:12px;align-items:center;padding:4px 10px 30px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#6e8cff,#78d8c0);display:grid;place-items:center;font-weight:900;font-size:19px}
+.brand b{font-size:18px}.brand small{display:block;color:#aebbd6;margin-top:2px}
+.nav-title{font-size:10px;color:#8090b0;letter-spacing:1.5px;padding:14px 12px 8px;text-transform:uppercase}
+.nav button{width:100%;text-align:left;background:transparent;color:#b8c4dd;padding:12px;border-radius:11px;margin:2px 0;display:flex;gap:11px;align-items:center}.nav button.active,.nav button:hover{background:#26365d;color:#fff}
+.content{margin-left:255px;width:calc(100% - 255px);padding:28px 32px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.top h1{margin:0;font-size:28px}.top p{margin:6px 0 0;color:var(--muted)}
+.actions{display:flex;gap:10px}.btn{padding:11px 16px;border-radius:11px;font-weight:700}.primary{background:var(--blue);color:#fff}.light{background:#fff;color:var(--text);border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}.stat:after{content:"";position:absolute;width:75px;height:75px;border-radius:50%;right:-28px;top:-28px;background:var(--sky)}.stat .ico{width:38px;height:38px;border-radius:11px;background:var(--sky);display:grid;place-items:center;font-size:18px}.stat h2{margin:16px 0 2px;font-size:27px}.stat span{color:var(--muted);font-size:13px}
+.main{display:grid;grid-template-columns:1.7fr 1fr;gap:18px;margin-top:18px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.cardhead h3{margin:0}.link{color:var(--blue);font-weight:700;background:none}
+.chart{height:235px;display:flex;align-items:end;gap:13px;padding:15px 8px 0;border-bottom:1px solid var(--line)}.bar{flex:1;background:linear-gradient(#6d86e9,#cbd5ff);border-radius:9px 9px 0 0;min-height:25px;position:relative}.bar b{position:absolute;bottom:-25px;width:100%;text-align:center;font-size:11px;color:var(--muted)}
+.activity{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.activity:last-child{border:0}.dot{width:36px;height:36px;border-radius:50%;background:var(--mint);display:grid;place-items:center}.activity b{font-size:13px}.activity p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.quick button{background:#f8faff;border:1px solid var(--line);padding:15px;border-radius:13px;text-align:left;color:var(--text);font-weight:700}.quick small{display:block;color:var(--muted);font-weight:400;margin-top:4px}
+.page{display:none}.page.active{display:block}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:13px 10px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}.table th{color:var(--muted);font-weight:600}.pill{padding:5px 9px;border-radius:99px;background:var(--mint);font-size:11px;font-weight:700}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.field.full{grid-column:1/-1}.empty{padding:35px;text-align:center;color:var(--muted)}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.main{grid-template-columns:1fr}}
+@media(max-width:720px){.sidebar{width:72px;padding:18px 9px}.brand div:not(.logo),.nav button span,.nav-title{display:none}.brand{padding:4px 6px 22px}.nav button{justify-content:center}.content{margin-left:72px;width:calc(100% - 72px);padding:20px 15px}.top{align-items:flex-start;gap:12px}.top h1{font-size:23px}.actions .light{display:none}.formgrid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.stat{padding:15px}.stat h2{font-size:22px}}
+@media(max-width:450px){.grid{grid-template-columns:1fr}.quick{grid-template-columns:1fr}.top{display:block}.actions{margin-top:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">E</div><div><b>EduNova</b><small>School Suite</small></div></div>
+  <div class="nav-title">Workspace</div>
+  <div class="nav">
+    <button class="active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+    <button data-page="students">♙ <span>Students</span></button>
+    <button data-page="staff">◉ <span>Staff</span></button>
+    <button data-page="classes">▦ <span>Classes</span></button>
+    <button data-page="attendance">✓ <span>Attendance</span></button>
+    <button data-page="fees">₤ <span>Fees & Finance</span></button>
+    <button data-page="reports">▤ <span>Reports</span></button>
+  </div>
+  <div class="nav-title">System</div>
+  <div class="nav"><button data-page="settings">⚙ <span>Settings</span></button></div>
+</aside>
+
+<main class="content">
+<section id="dashboard" class="page active">
+ <div class="top"><div><h1>Good morning, Administrator</h1><p>Here’s what is happening across your school today.</p></div><div class="actions"><button class="btn light" onclick="alert('Academic year: 2026')">2026 Academic Year ▾</button><button class="btn primary" onclick="openPage('students')">+ Add Student</button></div></div>
+ <div class="grid">
+  <div class="stat"><div class="ico">♙</div><h2>1,248</h2><span>Total Students</span></div>
+  <div class="stat"><div class="ico">◉</div><h2>86</h2><span>Teaching & Support Staff</span></div>
+  <div class="stat"><div class="ico">✓</div><h2>94.6%</h2><span>Today's Attendance</span></div>
+  <div class="stat"><div class="ico">₤</div><h2>UGX 48.2M</h2><span>Fees Collected</span></div>
+ </div>
+ <div class="main">
+  <div class="card"><div class="cardhead"><h3>Attendance Overview</h3><button class="link">This Week ▾</button></div><div class="chart">
+   <div class="bar" style="height:88%"><b>Mon</b></div><div class="bar" style="height:76%"><b>Tue</b></div><div class="bar" style="height:91%"><b>Wed</b></div><div class="bar" style="height:83%"><b>Thu</b></div><div class="bar" style="height:95%"><b>Fri</b></div>
+  </div></div>
+  <div class="card"><div class="cardhead"><h3>Recent Activity</h3><button class="link">View all</button></div>
+   <div class="activity"><div class="dot">+</div><div><b>New student registered</b><p>Sarah Namusoke · 8:42 AM</p></div></div>
+   <div class="activity"><div class="dot">₤</div><div><b>Fee payment received</b><p>David Okello · UGX 450,000</p></div></div>
+   <div class="activity"><div class="dot">✓</div><div><b>Attendance submitted</b><p>Senior Four · 9:15 AM</p></div></div>
+   <div class="activity"><div class="dot">◉</div><div><b>Staff profile updated</b><p>Ms. Achieng · Yesterday</p></div></div>
+  </div>
+ </div>
+ <div class="card" style="margin-top:18px"><div class="cardhead"><h3>Quick Actions</h3></div><div class="quick">
+  <button onclick="openPage('students')">＋ Register Student<small>Create a new student profile</small></button>
+  <button onclick="openPage('attendance')">✓ Record Attendance<small>Mark today's attendance</small></button>
+  <button onclick="openPage('fees')">₤ Record Payment<small>Add a fee transaction</small></button>
+  <button onclick="openPage('reports')">▤ Open Reports<small>View school performance</small></button>
+ </div></div>
+</section>
+
+<section id="students" class="page">
+ <div class="top"><div><h1>Students</h1><p>Manage student profiles, classes and enrollment.</p></div><button class="btn primary" onclick="document.getElementById('studentForm').scrollIntoView()">+ Register Student</button></div>
+ <div class="card"><div class="cardhead"><h3>Student Directory</h3><input id="search" oninput="filterStudents()" placeholder="Search student..." style="padding:10px;border:1px solid var(--line);border-radius:10px"></div>
+ <div class="tablewrap"><table class="table" id="studentTable"><thead><tr><th>Student</th><th>Admission No.</th><th>Class</th><th>Gender</th><th>Status</th></tr></thead><tbody>
+ <tr><td><b>Sarah Namusoke</b></td><td>EDU-2026-001</td><td>Senior 4A</td><td>Female</td><td><span class="pill">Active</span></td></tr>
+ <tr><td><b>David Okello</b></td><td>EDU-2026-002</td><td>Senior 6B</td><td>Male</td><td><span class="pill">Active</span></td></tr>
+ <tr><td><b>Brian Wasswa</b></td><td>EDU-2026-003</td><td>Senior 2A</td><td>Male</td><td><span class="pill">Active</span></td></tr>
+ </tbody></table></div></div>
+ <div class="card" id="studentForm" style="margin-top:18px"><div class="cardhead"><h3>Quick Registration</h3></div>
+  <div class="formgrid"><div class="field"><label>Full name</label><input placeholder="Student name"></div><div class="field"><label>Admission number</label><input placeholder="EDU-2026-004"></div><div class="field"><label>Class</label><select><option>Senior 1</option><option>Senior 2</option><option>Senior 3</option><option>Senior 4</option><option>Senior 5</option><option>Senior 6</option></select></div><div class="field"><label>Gender</label><select><option>Female</option><option>Male</option></select></div><div class="field full"><button class="btn primary" onclick="alert('Demo: student registration saved.')">Save Student</button></div></div>
+ </div>
+</section>
+
+<section id="staff" class="page"><div class="top"><div><h1>Staff</h1><p>Teachers and support staff directory.</p></div><button class="btn primary" onclick="alert('Demo: staff registration form opened.')">+ Add Staff</button></div><div class="card"><div class="tablewrap"><table class="table"><thead><tr><th>Name</th><th>Role</th><th>Department</th><th>Contact</th><th>Status</th></tr></thead><tbody><tr><td><b>Ms. Achieng</b></td><td>Teacher</td><td>Sciences</td><td>0700 000 001</td><td><span class="pill">Active</span></td></tr><tr><td><b>Mr. Kato</b></td><td>Accountant</td><td>Finance</td><td>0700 000 002</td><td><span class="pill">Active</span></td></tr></tbody></table></div></div></section>
+
+<section id="classes" class="page"><div class="top"><div><h1>Classes & Subjects</h1><p>Organize streams, subjects and class teachers.</p></div><button class="btn primary" onclick="alert('Demo: class created.')">+ Create Class</button></div><div class="grid"><div class="stat"><div class="ico">▦</div><h2>36</h2><span>Active Classes</span></div><div class="stat"><div class="ico">A</div><h2>18</h2><span>Subjects</span></div><div class="stat"><div class="ico">◉</div><h2>42</h2><span>Class Teachers</span></div><div class="stat"><div class="ico">⌁</div><h2>3</h2><span>Academic Terms</span></div></div></section>
+
+<section id="attendance" class="page"><div class="top"><div><h1>Attendance</h1><p>Monitor daily attendance by class.</p></div><button class="btn primary" onclick="alert('Demo: attendance saved.')">Save Attendance</button></div><div class="card"><div class="cardhead"><h3>Today · 18 September 2026</h3><select style="padding:9px;border:1px solid var(--line);border-radius:9px"><option>Senior 4A</option><option>Senior 6B</option></select></div><div class="tablewrap"><table class="table"><thead><tr><th>Student</th><th>Present</th><th>Absent</th><th>Late</th></tr></thead><tbody><tr><td>Sarah Namusoke</td><td>◉</td><td>○</td><td>○</td></tr><tr><td>David Okello</td><td>◉</td><td>○</td><td>○</td></tr><tr><td>Brian Wasswa</td><td>◉</td><td>○</td><td>○</td></tr></tbody></table></div></div></section>
+
+<section id="fees" class="page"><div class="top"><div><h1>Fees & Finance</h1><p>Track school fees and financial activity.</p></div><button class="btn primary" onclick="alert('Demo: payment recorded.')">+ Record Payment</button></div><div class="grid"><div class="stat"><div class="ico">₤</div><h2>UGX 48.2M</h2><span>Collected</span></div><div class="stat"><div class="ico">!</div><h2>UGX 12.7M</h2><span>Outstanding</span></div><div class="stat"><div class="ico">↗</div><h2>79%</h2><span>Collection Rate</span></div><div class="stat"><div class="ico">#</div><h2>934</h2><span>Paid Students</span></div></div></section>
+
+<section id="reports" class="page"><div class="top"><div><h1>Reports</h1><p>School performance at a glance.</p></div><button class="btn primary" onclick="window.print()">Print Report</button></div><div class="main"><div class="card"><h3>Academic & Enrollment Summary</h3><div class="empty">Reports will appear here once connected to your live Supabase data.</div></div><div class="card"><h3>Finance Summary</h3><div class="empty">Connect fee transactions to generate live financial reports.</div></div></div></section>
+
+<section id="settings" class="page"><div class="top"><div><h1>School Settings</h1><p>Configure school identity and system preferences.</p></div><button class="btn primary" onclick="alert('Demo: settings saved.')">Save Changes</button></div><div class="card"><div class="formgrid"><div class="field"><label>School name</label><input value="EduNova Academy"></div><div class="field"><label>Academic year</label><input value="2026"></div><div class="field"><label>Location</label><input value="Kampala, Uganda"></div><div class="field"><label>Currency</label><select><option>UGX — Uganda Shilling</option></select></div></div></div></section>
+</main>
+</div>
+<script>
+function openPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
+function filterStudents(){
+ const q=document.getElementById('search').value.toLowerCase();
+ document.querySelectorAll('#studentTable tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none');
+}
+</script>
+</body>
+</html>
